@@ -119,3 +119,10 @@ flag_5 = False
 if flag_5:
     answer_5 = lowest_common_multiple(*range(1, 21))
     print(answer_5)
+
+# Problem 6
+
+flag_6 = False
+if flag_6:
+    answer_6 = sum(range(101))**2 - sum(x**2 for x in range(101))
+    print(answer_6)
