@@ -33,9 +33,22 @@ if flag_2:
 
 
 def primes_less_than(n):
+    """Return a list of primes less than the number n."""
     primes = [2]
+    max_index = 0
+    max_testing = 2**2
+    # Max_index indicates the index of the maximum prime we need to test up to
+    # Max_testing indicates the maximum n before we need to increase The
+    # maximum prime we need to test up to
     for num in range(3, n):
-        if all(num % p != 0 for p in primes):
+        if num > max_testing:
+            max_index += 1
+            max_testing = primes[max_index]**2
+            # The reason for the squared is that, to test if a number is
+            # prime, you only need to check divisibility by primes up to
+            # the square root of the number - conversely, knowing all the
+            # primes up to p allows you to test all numbers up to p^2
+        if all(num % p != 0 for p in primes[:max_index]):
             primes.append(num)
     return primes
 
@@ -187,3 +200,21 @@ if flag_8:
         max_found = max(max_found, string_product(slice))
     answer_8 = max_found
     print(answer_8)
+
+
+# Problem 9
+
+# Solved using maths, by hand. See zk for solution.
+
+flag_9 = False
+if flag_9:
+    answer_9 = 31_875_000
+    print(answer_9)
+
+
+# Problem 10
+
+flag_10 = True
+if flag_10:
+    answer_10 = sum(primes_less_than(2_000_000))
+    print(answer_10)
