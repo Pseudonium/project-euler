@@ -126,3 +126,22 @@ flag_6 = False
 if flag_6:
     answer_6 = sum(range(101))**2 - sum(x**2 for x in range(101))
     print(answer_6)
+
+# Problem 7
+
+
+def n_primes(n):
+    """Get a list of n primes"""
+    primes = []
+    current = 2
+    while len(primes) < n:
+        if all(current % p != 0 for p in primes):
+            primes.append(current)
+        current += 1
+    return primes
+
+
+flag_7 = False
+if flag_7:
+    answer_7 = n_primes(10001)[-1]
+    print(answer_7)
