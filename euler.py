@@ -78,7 +78,7 @@ def is_palindrome(number):
     return digits == "".join(reversed(digits))
 
 
-flag_4 = True
+flag_4 = False
 if flag_4:
     products_4 = [
         x*y
@@ -88,3 +88,34 @@ if flag_4:
     ]
     answer_4 = max(products_4)
     print(answer_4)
+
+
+# Problem 5
+
+def greatest_common_divisor(a, b):
+    """Return the gcd of the two numbers."""
+    while a != b and b > 1:
+        # This uses the Euclidean algorithm for finding gcd(a,b)
+        c = max(a, b)
+        d = min(a, b)
+        a, b = d, c % d
+        # This should ensure b is always the smaller of the two numbers.
+        if b == 0:
+            # This implies d evenly divides c,
+            # meaning d is the greatest_common_divisor
+            return d
+    return b
+
+
+def lowest_common_multiple(*numbers):
+    current = 1
+    for num in numbers:
+        # The idea is to compute the lcm of current and num
+        current *= num // greatest_common_divisor(current, num)
+    return current
+
+
+flag_5 = False
+if flag_5:
+    answer_5 = lowest_common_multiple(*range(1, 21))
+    print(answer_5)
