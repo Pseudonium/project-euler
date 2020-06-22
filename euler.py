@@ -66,7 +66,7 @@ def iter_primes_less_than(n):
 def factor(n):
     current = n
     factors = []
-    primes = iter_primes_less_than(math.ceil(math.sqrt(n)))
+    primes = primes_less_than(math.ceil(math.sqrt(n)))
     for p in primes:
         while current % p == 0:
             factors.append(p)
@@ -317,13 +317,54 @@ def prime_factorisation(n):
     Returns a list of tuples, where the first element is the prime,
     and the second element is the power to which the prime is raised.
     """
-    current_prime = 2
+    factors = factor(n)
+    current_prime = factors[0]
     current_exponent = 0
     factorisation = []
-    for num in factor(n):
+    for num in factors:
         if num != current_prime:
             factorisation.append((current_prime, current_exponent))
             current_prime, current_exponent = num, 0
         current_exponent += 1
     factorisation.append((current_prime, current_exponent))
     return factorisation
+
+
+def number_of_divisors(n):
+    """Return the number of divisors of n, including 1 and n."""
+    divisors = 1
+    for prime, power in prime_factorisation(n):
+        # For any factor, can choose any number from 0 to power for what
+        # power of prime you should use.
+        # E.g. if it was 2^2, can choose either 2^0, 2^1 or 2^2
+        # So, the number of choices is power + 1
+        divisors *= power + 1
+    return divisors
+
+
+def factorise_product(a, b):
+    """Factorise n = ab, with a, b integers."""
+    a_dict = {prime: power for prime, power in prime_factorisation(a)}
+    b_dict = {prime: power for prime, power in prime_factorisation(b)}
+    n_dict = {}
+    for prime, power in a_dict.items():
+        n_dict[prime] = power
+    for prime, power in b_dict.items():
+        if prime in n_dict:
+            n_dict[prime] += power
+        else:
+            n_dict[prime] = power
+    return sorted(n_dict.items())
+
+
+print(factorise_product(1500, 3001))
+
+
+flag_12 = False
+if flag_12:
+    start = 1
+    while number_of_divisors(start*(start+1)//2) <= 500:
+        print(start, start*(start+1)//2)
+        start += 1
+    answer_12 = start*(start+1)//2
+    print(answer_12)
