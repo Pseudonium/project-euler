@@ -342,6 +342,18 @@ def number_of_divisors(n):
     return divisors
 
 
+def number_of_divisors_from_factorisation(factorisation):
+    """Return number of divisors of number with the given factorisation."""
+    divisors = 1
+    for prime, power in factorisation:
+        # For any factor, can choose any number from 0 to power for what
+        # power of prime you should use.
+        # E.g. if it was 2^2, can choose either 2^0, 2^1 or 2^2
+        # So, the number of choices is power + 1
+        divisors *= power + 1
+    return divisors
+
+
 def factorise_product(a, b):
     """Factorise n = ab, with a, b integers."""
     a_dict = {prime: power for prime, power in prime_factorisation(a)}
@@ -357,14 +369,16 @@ def factorise_product(a, b):
     return sorted(n_dict.items())
 
 
-print(factorise_product(1500, 3001))
-
-
 flag_12 = False
 if flag_12:
-    start = 1
-    while number_of_divisors(start*(start+1)//2) <= 500:
-        print(start, start*(start+1)//2)
-        start += 1
-    answer_12 = start*(start+1)//2
+    current = 1
+    k = 1
+    while k <= 500:
+        current += 1
+        if current % 2 == 0:
+            a, b = current // 2, current + 1
+        else:
+            a, b = (current + 1)//2, current
+        k = number_of_divisors_from_factorisation(factorise_product(a, b))
+    answer_12 = current*(current+1)//2
     print(answer_12)
