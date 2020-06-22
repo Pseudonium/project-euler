@@ -41,7 +41,7 @@ def primes_less_than(n):
     # Max_testing indicates the maximum n before we need to increase The
     # maximum prime we need to test up to
     for num in range(3, n):
-        if num > max_testing:
+        if num >= max_testing:
             max_index += 1
             max_testing = primes[max_index]**2
             # The reason for the squared is that, to test if a number is
