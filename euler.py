@@ -68,3 +68,23 @@ def factor(n):
 flag_3 = False
 if flag_3:
     answer_3 = factor(600851475143)[-1]
+
+# Problem 4
+
+
+def is_palindrome(number):
+    """Check whether or not the number is a palindrome."""
+    digits = str(number)
+    return digits == "".join(reversed(digits))
+
+
+flag_4 = True
+if flag_4:
+    products_4 = [
+        x*y
+        for x in range(100, 1000)
+        for y in range(100, 1000)
+        if is_palindrome(x*y)
+    ]
+    answer_4 = max(products_4)
+    print(answer_4)
