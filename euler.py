@@ -307,3 +307,23 @@ flag_11 = False
 if flag_11:
     answer_11 = ELEVEN_max(GRID_11a)
     print(answer_11)
+
+
+# Problem 12
+
+def prime_factorisation(n):
+    """Get the prime factorisation of n.
+
+    Returns a list of tuples, where the first element is the prime,
+    and the second element is the power to which the prime is raised.
+    """
+    current_prime = 2
+    current_exponent = 0
+    factorisation = []
+    for num in factor(n):
+        if num != current_prime:
+            factorisation.append((current_prime, current_exponent))
+            current_prime, current_exponent = num, 0
+        current_exponent += 1
+    factorisation.append((current_prime, current_exponent))
+    return factorisation
