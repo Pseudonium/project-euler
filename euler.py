@@ -492,3 +492,30 @@ flag_13 = False
 if flag_13:
     answer_13 = str(sum(NUMBERS_13))[:10]
     print(answer_13)
+
+# Problem 14
+
+
+def collatz_chain_length(n, cache={1: 1}):
+    """Get the length of the collatz chain starting from n."""
+    if n == 1:
+        return 1
+    original = n
+    result = 0
+    while n not in cache:
+        if n % 2 == 0:
+            n = n // 2
+        else:
+            n = 3*n + 1
+        result += 1
+    cache[original] = result + cache[n]
+    return cache[original]
+
+
+flag_14 = False
+if flag_14:
+    answer_14 = max(
+        (collatz_chain_length(i), i)
+        for i in range(1, 1_000_000)
+    )[1]
+    print(answer_14)
