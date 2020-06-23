@@ -527,3 +527,11 @@ flag_15 = False
 if flag_15:
     answer_15 = math.comb(40, 20)
     print(answer_15)
+
+
+# Problem 16
+
+flag_16 = False
+if flag_16:
+    answer_16 = sum(int(d) for d in str(2**1_000))
+    print(answer_16)
