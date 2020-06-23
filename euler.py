@@ -519,3 +519,11 @@ if flag_14:
         for i in range(1, 1_000_000)
     )[1]
     print(answer_14)
+
+# Problem 15
+# See zk for full solution
+
+flag_15 = False
+if flag_15:
+    answer_15 = math.comb(40, 20)
+    print(answer_15)
