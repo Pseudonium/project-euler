@@ -656,3 +656,51 @@ flag_18 = False
 if flag_18:
     answer_18 = triangle_max_route_value(TRIANGLE_18)
     print(answer_18)
+
+
+# Problem 19
+
+def is_leap_year(n):
+    """Determine whether year n is a leap year."""
+    if n % 4 != 0:
+        return False
+    if n % 100 == 0:
+        return n % 400 == 0
+    else:
+        return True
+
+
+def month_length(month, year):
+    """Determine the length of month n in year.
+
+    0 is January, 11 is December.
+    """
+    THIRTY = [3, 5, 8, 10]
+    if month in THIRTY:
+        return 30
+    elif month == 1:
+        # February
+        return 28 + is_leap_year(year)
+    else:
+        return 31
+
+
+flag_19 = False
+if flag_19:
+    DAY = 1  # Tuesday
+    MONTH = 0  # January
+    YEAR = 1901  # 1 January 1901
+    count = 0
+    while YEAR < 2001:
+        DAY += month_length(MONTH, YEAR)
+        DAY = DAY % 7
+        if DAY == 6:
+            # So 1st day of month is Sunday
+            count += 1
+        MONTH += 1
+        if MONTH == 12:
+            # New year
+            MONTH = 0
+            YEAR += 1
+    answer_19 = count
+    print(answer_19)
