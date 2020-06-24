@@ -588,3 +588,71 @@ if flag_17:
     answer_17 = sum(len(number_to_words(i)) for i in range(1, 1000))
     answer_17 += len("onethousand")
     print(answer_17)
+
+
+# Problem 18
+
+TRIANGLE_18 = """75
+95 64
+17 47 82
+18 35 87 10
+20 04 82 47 65
+19 01 23 75 03 34
+88 02 77 73 07 63 67
+99 65 04 28 06 16 70 92
+41 41 26 56 83 40 80 70 33
+41 48 72 33 47 32 37 16 94 29
+53 71 44 65 25 43 91 52 97 51 14
+70 11 33 28 77 73 17 78 39 68 17 57
+91 71 52 38 17 14 91 43 58 50 27 29 48
+63 66 04 68 89 53 67 30 73 16 69 87 40 31
+04 62 98 27 23 09 70 98 73 93 38 53 60 04 23""".split("\n")
+
+TRIANGLE_18 = [row.split(" ") for row in list(TRIANGLE_18)]
+for i, row in enumerate(TRIANGLE_18):
+    TRIANGLE_18[i] = tuple([int(num) for num in list(row)])
+TRIANGLE_18 = tuple(TRIANGLE_18)
+
+
+@functools.lru_cache(maxsize=None)
+def triangle_cell_max_value(row_i, column_i, triangle):
+    """
+    Return the maximum accumulated value of a route through this cell.
+
+    More specifically, among all possible routes from the top of the triangle
+    to this cell, this function returns the maximum accumulated value up to
+    this point in the route.
+    """
+    if row_i < 0 or row_i >= len(triangle):
+        return 0
+    row = triangle[row_i]
+    if column_i < 0 or column_i >= len(row):
+        return 0
+    cell_value = row[column_i]
+    # The way the triangle is set up, you can reach (row_i, column_i) from
+    # the previous row by either (row_i - 1, column_i - 1) (going right)
+    # or (row_i - 1, column_i) (going left)
+    # So, the maximum value is the maximum of either of those two higher
+    # values, plus the value of this cell
+    return max(
+        triangle_cell_max_value(row_i - 1, column_i - 1, triangle),
+        triangle_cell_max_value(row_i - 1, column_i, triangle)
+    ) + cell_value
+
+
+def triangle_max_route_value(triangle):
+    """Use above function to determine maximum achievable value.
+
+    From top to bottom.
+    """
+    final_row, final_row_i = triangle[-1], len(triangle) - 1
+    return max(
+        triangle_cell_max_value(final_row_i, col_i, triangle)
+        for col_i in range(len(final_row))
+    )
+
+
+flag_18 = False
+if flag_18:
+    answer_18 = triangle_max_route_value(TRIANGLE_18)
+    print(answer_18)
