@@ -535,3 +535,56 @@ flag_16 = False
 if flag_16:
     answer_16 = sum(int(d) for d in str(2**1_000))
     print(answer_16)
+
+
+# Problem 17
+
+UNITS_17 = [
+    "zero", "one", "two",
+    "three", "four", "five",
+    "six", "seven", "eight", "nine"
+]
+
+TENS_17 = [
+    "ten", "twenty", "thirty", "forty",
+    "fifty", "sixty", "seventy", "eighty", "ninety"
+]
+
+TEENS_17 = [
+    "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
+    "seventeen", "eighteen", "nineteen"
+]
+
+
+def number_to_words(n):
+    """Converts n to a word representation. 1 <= n <= 999"""
+    result = ""
+    hundreds = n // 100
+    n -= 100*hundreds
+    tens = n // 10
+    n -= 10*tens
+    units = n
+    if hundreds > 0:
+        result += UNITS_17[hundreds] + "hundred"
+        if tens == 0 and units == 0:
+            return result
+        result += "and"
+    num = 10*tens + units
+    if num < 10:
+        result += UNITS_17[units]
+        return result
+    elif 11 <= num <= 19:
+        result += TEENS_17[num-11]
+        return result
+    else:
+        result += TENS_17[tens-1]
+        if units != 0:
+            result += UNITS_17[units]
+        return result
+
+
+flag_17 = False
+if flag_17:
+    answer_17 = sum(len(number_to_words(i)) for i in range(1, 1000))
+    answer_17 += len("onethousand")
+    print(answer_17)
