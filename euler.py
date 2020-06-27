@@ -704,3 +704,11 @@ if flag_19:
             YEAR += 1
     answer_19 = count
     print(answer_19)
+
+
+# Problem 20
+
+flag_20 = False
+if flag_20:
+    answer_20 = sum(int(d) for d in str(math.factorial(100)))
+    print(answer_20)
