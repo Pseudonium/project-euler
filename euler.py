@@ -757,3 +757,28 @@ flag_21 = False
 if flag_21:
     answer_21 = sum(i for i in range(2, 10000) if is_amicable(i))
     print(answer_21)
+
+
+# Problem 22
+
+ALPHABET = [
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+    "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+]
+
+
+def name_value(name):
+    """Return alphabetical value of name."""
+    return sum(ALPHABET.index(char) for char in name.upper()) + len(name)
+
+
+flag_22 = False
+if flag_22:
+    with open("p022_names.txt") as f:
+        names = f.read()
+    names = names.split(",")
+    for i, item in enumerate(names):
+        names[i] = item.replace('"', '')
+    names.sort()
+    answer_22 = sum((i+1)*name_value(name) for i, name in enumerate(names))
+    print(answer_22)
