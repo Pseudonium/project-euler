@@ -782,3 +782,29 @@ if flag_22:
     names.sort()
     answer_22 = sum((i+1)*name_value(name) for i, name in enumerate(names))
     print(answer_22)
+
+
+# Problem 23
+
+def is_abundant(n):
+    """Determine whether n is an abundant number."""
+    return sum(proper_divisors(n)) > n
+
+
+flag_23 = False
+if flag_23:
+    abundants = [n for n in range(2, 28124) if is_abundant(n)]
+    i = 0
+    j = 0
+    possible_sum = 0
+    possible_sums = set()
+    while 2*abundants[i] <= 28123:
+        possible_sum = abundants[i] + abundants[j]
+        if possible_sum <= 28123:
+            possible_sums.add(possible_sum)
+            j += 1
+        else:
+            i += 1
+            j = i
+    answer_23 = sum(i for i in range(28124) if i not in possible_sums)
+    print(answer_23)
