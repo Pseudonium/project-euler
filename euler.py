@@ -712,3 +712,48 @@ flag_20 = False
 if flag_20:
     answer_20 = sum(int(d) for d in str(math.factorial(100)))
     print(answer_20)
+
+# Problem 21
+
+
+def powerset(iterable):
+    """Return the powerset of iterable."""
+    s = list(iterable)
+    return itertools.chain.from_iterable(
+        itertools.combinations(s, r) for r in range(len(s)+1)
+    )
+
+
+def divisors(n):
+    """Return a list of all divisors of n, sorted."""
+    return sorted({math.prod(subset) for subset in powerset(factor(n))})
+
+
+def proper_divisors(n):
+    """Return a sorted list of all proper divisors of n."""
+    divisors_list = divisors(n)
+    divisors_list.pop()
+    return divisors_list
+
+
+def is_amicable(n, yes_cache=set(), no_cache=set()):
+    """Determine whether n is amicable."""
+    other = sum(proper_divisors(n))
+    if n in yes_cache:
+        return True
+    elif n in no_cache:
+        return False
+    elif sum(proper_divisors(other)) == n and other != n:
+        yes_cache.add(n)
+        yes_cache.add(other)
+        return True
+    else:
+        no_cache.add(n)
+        no_cache.add(other)
+        return False
+
+
+flag_21 = False
+if flag_21:
+    answer_21 = sum(i for i in range(2, 10000) if is_amicable(i))
+    print(answer_21)
