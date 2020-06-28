@@ -853,3 +853,39 @@ if flag_25:
         index += 1
     answer_25 = index
     print(answer_25)
+
+
+# Problem 26
+
+def reciprocal_to_decimal_repr(n):
+    """Return 1/n as a repeating decimal (string output)."""
+    digits = []
+    remainders = []
+    remainder = 1
+    digit = 0
+    while remainder not in remainders:
+        digits.append(digit)
+        remainders.append(remainder)
+        digit, remainder = remainder*10 // n, remainder*10 % n
+        #print(digit, remainder)
+    digits.append(digit)
+    remainders.append(remainder)
+    #remainders.insert(0, 1)
+    return [digits, remainders]
+
+
+def reciprocal_repeat_length(n):
+    """Return length of repeating block of n."""
+    representation = reciprocal_to_decimal_repr(n)
+    remainders = representation[1]
+    last_remainder = remainders[-1]
+    duplicate_index = remainders.index(last_remainder)
+    return len(remainders) - duplicate_index - 1
+
+
+flag_26 = False
+if flag_26:
+    answer_26 = max(
+        (reciprocal_repeat_length(i), i) for i in range(1, 1000)
+    )[1]
+    print(answer_26)
