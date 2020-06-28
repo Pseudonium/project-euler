@@ -830,3 +830,26 @@ if flag_24:
     consume(combs, n=999_999)
     answer_24 = next(combs)
     print(answer_24)
+
+# Problem 25
+
+
+def fibonacci_25(n, cache=dict()):
+    """Return the nth fibonacci number."""
+    if n == 0 or n == 1:
+        return n
+    elif n in cache:
+        return cache[n]
+    else:
+        result = fibonacci_25(n - 1) + fibonacci_25(n - 2)
+        cache[n] = result
+        return result
+
+
+flag_25 = False
+if flag_25:
+    index = 0
+    while len(str(fibonacci_25(index))) < 1000:
+        index += 1
+    answer_25 = index
+    print(answer_25)
