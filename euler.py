@@ -2,6 +2,7 @@ import itertools
 import functools
 import math
 import operator
+import collections
 
 # Problem 1
 
@@ -808,3 +809,24 @@ if flag_23:
             j = i
     answer_23 = sum(i for i in range(28124) if i not in possible_sums)
     print(answer_23)
+
+
+# Problem 24
+
+def consume(iterator, n=None):
+    """Advance the iterator n-steps ahead. If n is None, consume entirely."""
+    # Use functions that consume iterators at C speed.
+    if n is None:
+        # feed the entire iterator into a zero-length deque
+        collections.deque(iterator, maxlen=0)
+    else:
+        # advance to the empty slice starting at position n
+        next(itertools.islice(iterator, n, n), None)
+
+
+flag_24 = False
+if flag_24:
+    combs = itertools.permutations(range(10), 10)
+    consume(combs, n=999_999)
+    answer_24 = next(combs)
+    print(answer_24)
