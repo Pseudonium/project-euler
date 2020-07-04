@@ -889,3 +889,29 @@ if flag_26:
         (reciprocal_repeat_length(i), i) for i in range(1, 1000)
     )[1]
     print(answer_26)
+
+# Problem 27
+
+
+def is_prime(n):
+    """Check if n is prime."""
+    return all(n % p != 0 for p in primes_less_than(math.ceil(math.sqrt(n))))
+
+
+flag_27 = False
+if flag_27:
+    primes_27 = primes_less_than(1000)
+
+    max_count = 0
+    max_ab = 0
+    for b in primes_27:
+        print(b)
+        for a in range(math.ceil(-2*math.sqrt(b)), 1000):
+            n = 0
+            while is_prime(n**2 + a*n + b):
+                n += 1
+            max_count = max(max_count, n)
+            if max_count == n:
+                max_ab = a * b
+    answer_27 = max_ab
+    print(answer_27)
