@@ -946,3 +946,15 @@ if flag_29:
             numbers.add(a**b)
     answer_29 = len(numbers)
     print(answer_29)
+
+
+# Problem 30
+
+
+flag_30 = False
+if flag_30:
+    answer_30 = sum(
+        n for n in range(2, 10**6)
+        if n == sum(int(d)**5 for d in str(n))
+    )
+    print(answer_30)
