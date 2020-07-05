@@ -901,11 +901,9 @@ def is_prime(n):
 flag_27 = False
 if flag_27:
     primes_27 = primes_less_than(1000)
-
     max_count = 0
     max_ab = 0
     for b in primes_27:
-        print(b)
         for a in range(math.ceil(-2*math.sqrt(b)), 1000):
             n = 0
             while is_prime(n**2 + a*n + b):
@@ -915,3 +913,24 @@ if flag_27:
                 max_ab = a * b
     answer_27 = max_ab
     print(answer_27)
+
+
+# Problem 28
+
+def sum_spiral_28(n):
+    """Return sum of diagnals clockwise 2n - 1 spiral."""
+    if n == 1:
+        return 1
+    result = 0
+    result += sum_spiral_28(n - 1)
+    num = (2*n - 3)**2
+    for i in range(4):
+        num += 2*(n-1)
+        result += num
+    return result
+
+
+flag_28 = False
+if flag_28:
+    answer_28 = sum_spiral_28(501)
+    print(answer_28)
