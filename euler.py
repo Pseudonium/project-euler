@@ -934,3 +934,15 @@ flag_28 = False
 if flag_28:
     answer_28 = sum_spiral_28(501)
     print(answer_28)
+
+
+# Problem 29
+
+flag_29 = False
+if flag_29:
+    numbers = set()
+    for a in range(2, 101):
+        for b in range(2, 101):
+            numbers.add(a**b)
+    answer_29 = len(numbers)
+    print(answer_29)
