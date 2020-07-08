@@ -958,3 +958,29 @@ if flag_30:
         if n == sum(int(d)**5 for d in str(n))
     )
     print(answer_30)
+
+
+# Problem 31
+
+COINS_31 = [1, 2, 5, 10, 20, 50, 100, 200]
+
+
+def coin_ways_31(amount: int, allowed: list = COINS_31) -> int:
+    """Give the number of ways to make amount with the allowed coins."""
+    if len(allowed) == 1:
+        return 1
+    biggest = allowed[-1]
+    max_biggest = amount // biggest
+    allowed = allowed[:-1]
+    return sum(
+        coin_ways_31(
+            amount - i*biggest, allowed
+        )
+        for i in range(max_biggest + 1)
+    )
+
+
+flag_31 = False
+if flag_31:
+    answer_31 = coin_ways_31(200)
+    print(answer_31)
