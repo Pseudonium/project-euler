@@ -3,6 +3,7 @@ import functools
 import math
 import operator
 import collections
+import pdb
 
 # Problem 1
 
@@ -984,3 +985,62 @@ flag_31 = False
 if flag_31:
     answer_31 = coin_ways_31(200)
     print(answer_31)
+
+# Problem 32
+
+
+def compare(list1, list2):
+    """Determine if the two lists have the same elements."""
+    return collections.Counter(list1) == collections.Counter(list2)
+
+
+def multiply_1_4(perm):
+    """Multiply first digit of perm by next 4 digits."""
+    one_digit, four_digit = perm[0], int(
+        "".join(map(str, perm[1:]))
+    )
+    return one_digit * four_digit
+
+
+def multiply_2_3(perm):
+    """Multiply first two digits of perm by next 3 digits."""
+    two_digit, three_digit = int(
+        "".join(map(str, perm[:2]))
+    ), int(
+        "".join(map(str, perm[2:]))
+    )
+    return two_digit * three_digit
+
+
+def check_1_4(perm):
+    """Do the pandigital check for a 1 digit times a 4 digit."""
+    result = multiply_1_4(perm)
+    return compare(
+        "".join(map(str, perm)) + str(result),
+        map(str, list(range(1, 10)))
+    )
+
+
+def check_2_3(perm):
+    """Do the pandigital check for a 2 digit times a 3 digit."""
+    result = multiply_2_3(perm)
+    return compare(
+        "".join(map(str, perm)) + str(result),
+        map(str, list(range(1, 10)))
+    )
+
+
+flag_32 = False
+if flag_32:
+    answer_32 = sum(
+        set(
+            multiply_1_4(perm)
+            for perm in itertools.permutations(list(range(1, 10)), 5)
+            if check_1_4(perm)
+        ) | set(
+            multiply_2_3(perm)
+            for perm in itertools.permutations(list(range(1, 10)), 5)
+            if check_2_3(perm)
+        )
+    )
+    print(answer_32)
